@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class Routine</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #b58ef9;
+      color: #070000;
+    }
+
+    .routine-container {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 10px;
+      text-align: center;
+    }
+
+    h1, h2, h3 {
+      margin: 10px 0;
+      color: #01000a;
+    }
+
+    .search-bar {
+      margin-bottom: 20px;
+    }
+
+    .search-bar input {
+      padding: 10px;
+      width: calc(100% - 80px);
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-bar button {
+      padding: 10px 15px;
+      margin-left: 5px;
+      border: none;
+      border-radius: 5px;
+      background-color: #ff0040;
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-bar button:hover {
+      background-color: #c70035;
+    }
+
+    .routine-table-container {
+      overflow-x: auto;
+    }
+
+    .routine-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0 auto;
+      background-color: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .routine-table thead {
+      background-color: #ff0040;
+      color: #fff;
+    }
+
+    .routine-table th,
+    .routine-table td {
+      padding: 15px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    .routine-table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    .routine-table tr:hover {
+      background-color: #ff00bb;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .routine-table tr.current-day {
+      background-color: #07d4ef;
+      font-weight: bold;
+    }
+
+    .no-results {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #ff0040;
+      display: none;
+    }
+
+    footer {
+      margin-top: 40px;
+      padding: 10px;
+      background-color: #065b48;
+      color: #fff;
+      text-align: center;
+    }
+
+    .scroll-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: none;
+      background-color: #ff0040;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      padding: 10px 15px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .scroll-to-top:hover {
+      background-color: #f51505;
+    }
+
+    .print-container {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .print-button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #0aaa0c;
+      color: #f5f6fa;
+      cursor: pointer;
+      font-size: 16px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .print-button:hover {
+      background-color: #c70035;
+    }
+
+    .extra-features {
+      margin: 20px auto;
+      text-align: center;
+    }
+
+    .extra-features select {
+      padding: 10px;
+      margin: 0 10px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+
+    @media (max-width: 768px) {
+      h1, h2, h3 {
+        font-size: 1.2rem;
+      }
+
+      .search-bar input {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      .search-bar button {
+        width: 100%;
+        padding: 10px;
+        margin: 0;
+      }
+
+      .routine-table th,
+      .routine-table td {
+        padding: 10px;
+        font-size: 0.9rem;
+      }
+
+      .routine-table tr:hover {
+        font-weight: normal;
+      }
+
+      .print-button {
+        width: 100%;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="routine-container">
+    <h1>Bangabandhu Sheikh Mujibur Rahman Science and Technology University</h1>
+    <h2>Department of Management Studies</h2>
+    <h3>Year-1 Semester-1 <br> Class Routines</h3>
+
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search by day or course...">
+      <button id="resetButton">Reset</button>
+    </div>
+
+    <div class="no-results" id="noResults">No results found.</div>
+
+    <div class="routine-table-container">
+      <table class="routine-table" id="routineTable">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>9:00 AM - 10:25 AM</th>
+            <th>10:30 AM - 11:55 AM</th>
+            <th>12:00 PM - 1:00 PM</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-day="Sunday">
+            <td>Sunday</td>
+            <td>MKT 107: MRM <br>(Principles of Marketing)</td>
+            <td>MGT 101: BU <br>(Introduction to Business)</td>
+            <td>MGT 138: SA <br>(Management Skills Lab)</td>
+          </tr>
+          <tr data-day="Monday">
+            <td>Monday</td>
+            <td>MGT 101: BU <br>(Introduction to Business)</td>
+            <td>MKT 107: MRM <br>(Principles of Marketing)</td>
+            <td>MGT 138: SA <br>(Management Skills Lab)</td>
+          </tr>
+          <tr data-day="Tuesday">
+            <td>Tuesday</td>
+            <td>AIS 105: SH <br>(Principles of Accounting)</td>
+            <td>MGT 103: IR <br>(Principles of Management)</td>
+            <td>MGT 138: SA <br>(Management Skills Lab)</td>
+          </tr>
+          <tr data-day="Wednesday">
+            <td>Wednesday</td>
+            <td>MAT 109: SCR <br>(Business Mathematics)</td>
+            <td>MGT 103: IR <br>(Principles of Management)</td>
+            <td></td>
+          </tr>
+          <tr data-day="Thursday">
+            <td>Thursday</td>
+            <td>AIS 105: SH <br>(Principles of Accounting)</td>
+            <td>MAT 109: SCR <br>(Business Mathematics)</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="print-container">
+    <button class="print-button" id="printButton">Print Routine</button>
+  </div>  
+
+  <footer>
+    <p>&copy; 2025 Supriya Mondal. All rights reserved.</p>
+  </footer>
+
+  <button class="scroll-to-top" id="scrollToTop">&uarr;</button>
+
+  <script>
+    // Highlight the current day
+    const currentDay = new Date().toLocaleString('en-US', { weekday: 'long' });
+    document.querySelectorAll('#routineTable tbody tr').forEach(row => {
+      if (row.dataset.day === currentDay) {
+        row.classList.add('current-day');
+      }
+    });
+
+    // Search functionality
+    const searchInput = document.getElementById('searchInput');
+    const resetButton = document.getElementById('resetButton');
+    const routineTable = document.getElementById('routineTable');
+    const noResults = document.getElementById('noResults');
+    const rows = Array.from(routineTable.tBodies[0].rows);
+
+    searchInput.addEventListener('input', () => {
+      const filter = searchInput.value.toLowerCase();
+      let matchFound = false;
+
+      rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        const match = text.includes(filter);
+        row.style.display = match ? '' : 'none';
+        if (match) matchFound = true;
+      });
+
+      noResults.style.display = matchFound ? 'none' : 'block';
+    });
+
+    resetButton.addEventListener('click', () => {
+      searchInput.value = '';
+      rows.forEach(row => (row.style.display = ''));
+      noResults.style.display = 'none';
+    });
+
+    // Scroll-to-top functionality
+    const scrollToTopButton = document.getElementById('scrollToTop');
+
+    window.addEventListener('scroll', () => {
+      scrollToTopButton.style.display = window.scrollY > 200 ? 'block' : 'none';
+    });
+
+    scrollToTopButton.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Print functionality
+    const printButton = document.getElementById('printButton');
+    printButton.addEventListener('click', () => {
+      window.print();
+    });
+  </script>
+</body>
+</html>
